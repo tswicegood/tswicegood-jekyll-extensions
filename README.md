@@ -1,12 +1,17 @@
-My Jekyll Extensions
-====================
+My Jekyll Extensions & Plugins
+==============================
 
-A small collection of extension built on top of the [jekyll_ext][] package for
-[jekyll][].
+A small collection of extension and plugins built on top of the [jekyll_ext][]
+and the internal [jekyll][] plugin system for use with [jekyll][].
 
 
 Installation & Usage
 --------------------
+There are two parts to this (I hope to get them all down to just plugins).
+
+### Installing Jekyll Extensions
+If you plan on using any of the extensions that are in directories other than
+the `_plugins/` directory, you need to follow these instructions:
 
 * Make sure you have [jekyll_ext][] installed (`gem install jeykll_ext` should
 get you going)
@@ -15,18 +20,21 @@ get you going)
 in your jekyll project
 * Run `ejekyll` to generate your site
 
-
-### Installation as a git submodule
+#### Installation as a git submodule
 
 I use this as a submodule on my sites.  Here's how I set it up (these commands
 are run within the project):
 
     git submodule add git://github.com/tswicegood/tswicegood-jekyll-extensions \
         vendor/tswicegood-jekyll-extensions
-    for i in $(ls -d vendor/tswicegood-jekyll-extensions/*/); do
+    for i in $(ls -d vendor/tswicegood-jekyll-extensions/*/| grep -v _plugins); do
         ln -s ../`echo $i | sed -e 's/\/$//'` _extensions/
     done
 
+### Installing Plugins
+Copy and paste any of the `*.rb` files out of the `_plugins/` directory into
+your own `_plugins/` directory, and you're set.  You can also symlink them a la
+the code above if you like.
 
 Included Extensions
 -------------------
@@ -42,8 +50,22 @@ decided to create a symlink structure inside a `/index.php/` directory that
 matches my URL structure from b2evo.
 
 
+Included Plugins
+----------------
+
+### reverse_pagenums
+
+What sense does it make for our archives to be constantly changing.  The
+contents of "page2" are always shifting as we add no content.  This isn't very
+good for a RESTful process, so this reverses everything making sure that your
+archive posts never go away.
+
+Thanks to [James Tauber][] for the [idea][restful tweet].
+
 
 [jekyll_ext]: http://github.com/rfelix/jekyll_ext 
 [jekyll]: http://github.com/mojombo/jekyll
 [mod_rewrite]: http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
 [Apache]: http://httpd.apache.org/
+[James Tauber]: http://jtauber.com/
+[restful tweet]: http://twitter.com/jtauber/status/19367584939
