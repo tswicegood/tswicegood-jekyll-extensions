@@ -4,6 +4,13 @@ My Jekyll Extensions & Plugins
 A small collection of extension and plugins built on top of the [jekyll_ext][]
 and the internal [jekyll][] plugin system for use with [jekyll][].
 
+*NOTE*: This repo is in flux continually.  It's a great place to learn as the
+plugins and extensions are simple, but proceed with caution before using.
+
+*Planned Changes*: After starting down the path of [jekyll_ext][] I found out
+that [jekyll][] has added a plug-in architecture.  My goal is to refactor the
+b2evo_urls to use this architecture and remove the need for anything other than
+jekyll.
 
 Installation & Usage
 --------------------
