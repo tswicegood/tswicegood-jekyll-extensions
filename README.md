@@ -87,6 +87,19 @@ variables):
 * `page.year`: The year for the archive page being rendered
 
 
+### monthly_archive_generator
+
+This adds `/:year/:month/` pages that contain all of the posts from that month
+and year.
+
+This plug-in expects a `_layouts/monthly_archive.html` file and will refuse to
+run without it.
+
+This plug-in adds all of the variables from `yearly_archive_generator` and:
+
+* `page.month'`: The month of the archive page being rendered
+
+
 [jekyll_ext]: http://github.com/rfelix/jekyll_ext 
 [jekyll]: http://github.com/mojombo/jekyll
 [mod_rewrite]: http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
