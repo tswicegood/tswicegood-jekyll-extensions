@@ -100,6 +100,19 @@ This plug-in adds all of the variables from `yearly_archive_generator` and:
 * `page.month'`: The month of the archive page being rendered
 
 
+### daily_archive_generator
+
+This adds `/:year/:month/:day/` pages that contain all of the posts from that
+day, month, and year.
+
+This plug-in expects a `_layouts/daily_archive.html` file and will refuse to
+run without it.
+
+This plug-in adds all of the variables from `monthly_archive_generator` and:
+
+* `page.day'`: The day of the month of the archive page being rendered
+
+
 [jekyll_ext]: http://github.com/rfelix/jekyll_ext 
 [jekyll]: http://github.com/mojombo/jekyll
 [mod_rewrite]: http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
