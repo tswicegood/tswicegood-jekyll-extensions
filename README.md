@@ -70,6 +70,23 @@ archive posts never go away.
 Thanks to [James Tauber][] for the [idea][restful tweet].
 
 
+### yearly_archive_generator
+
+This adds `/:year/` pages that contain all of the posts from that year.
+
+This plug-in expects a `_layouts/yearly_archive.html` file and will refuse to run
+without it.
+
+The following variables are passed in to it (in addition to the normal jekyll
+variables):
+
+* `page.posts`: An reverse-chronological array of all of the posts from the
+  provided year.  These are full `post` variables with all the standard
+  variables you've come to know and love.
+* `page.url`: The URL for the page in question
+* `page.year`: The year for the archive page being rendered
+
+
 [jekyll_ext]: http://github.com/rfelix/jekyll_ext 
 [jekyll]: http://github.com/mojombo/jekyll
 [mod_rewrite]: http://httpd.apache.org/docs/2.2/mod/mod_rewrite.html
