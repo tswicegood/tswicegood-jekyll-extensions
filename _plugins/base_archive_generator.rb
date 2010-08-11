@@ -38,6 +38,10 @@ module TravisSwicegoodGenerators
   end
 
   module ArchiveGenerator
+    def default_bucket
+      {:posts => [], :subs => {}}
+    end
+
     def initialize(config = {})
       super(config)
       @bucket = {}

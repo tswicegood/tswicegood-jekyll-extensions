@@ -35,16 +35,17 @@ Missing file:
     include ArchiveGenerator
 
     def add_to_bucket(post)
-      @bucket[post.date.year] ||= {}
-      @bucket[post.date.year][post.date.month] ||= {}
-      @bucket[post.date.year][post.date.month][post.date.day] ||= []
-      @bucket[post.date.year][post.date.month][post.date.day] << post
+      @bucket[post.date.year] ||= default_bucket
+      @bucket[post.date.year][:subs][post.date.month] ||= default_bucket
+      @bucket[post.date.year][:subs][post.date.month][:subs][post.date.day] ||= default_bucket
+      @bucket[post.date.year][:subs][post.date.month][:subs][post.date.day][:posts] << post
     end
 
     def process
-      @bucket.each_pair do |year, months|
-        months.each_pair do |month, days|
-          days.each_pair do |day, posts|
+      @bucket.each_pair do |year, monthly_data|
+        monthly_data[:subs].each_pair do |month, daily_data|
+          daily_data[:subs].each_pair do |day, data|
+            posts = data[:posts]
             posts.sort! { |a,b| b.date <=> a.date }
             @site.pages << DailyArchivePage.new(@site, year, month, day, posts)
           end

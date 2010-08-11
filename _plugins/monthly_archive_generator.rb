@@ -33,14 +33,15 @@ Missing file:
     include ArchiveGenerator
 
     def add_to_bucket(post)
-      @bucket[post.date.year] ||= {}
-      @bucket[post.date.year][post.date.month] ||= []
-      @bucket[post.date.year][post.date.month] << post
+      @bucket[post.date.year] ||= default_bucket
+      @bucket[post.date.year][post.date.month] ||= default_bucket
+      @bucket[post.date.year][post.date.month][:posts] << post
     end
 
     def process
       @bucket.each_pair do |year, months|
-        months.each_pair do |month, posts|
+        months[:subs].each_pair do |month, data|
+          posts = data[:posts]
           posts.sort! { |a,b| b.date <=> a.date }
           @site.pages << MonthlyArchivePage.new(@site, year, month, posts)
         end
