@@ -34,8 +34,8 @@ Missing file:
 
     def add_to_bucket(post)
       @bucket[post.date.year] ||= default_bucket
-      @bucket[post.date.year][post.date.month] ||= default_bucket
-      @bucket[post.date.year][post.date.month][:posts] << post
+      @bucket[post.date.year][:subs][post.date.month] ||= default_bucket
+      @bucket[post.date.year][:subs][post.date.month][:posts] << post
     end
 
     def process
