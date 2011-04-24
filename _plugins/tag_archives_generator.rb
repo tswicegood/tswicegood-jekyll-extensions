@@ -1,7 +1,7 @@
 module TravisSwicegoodGenerators
   class CommonTagAchive < Jekyll::Page
     attr_reader :name, :subs, :tag_name, :tags, :real_init
-    attr_accessor :layouts, :posts
+    attr_accessor :layouts, :posts, :data
 
     def initialize(site, tag_name)
       real_init site, tag_name
@@ -42,14 +42,17 @@ module TravisSwicegoodGenerators
     # END common code
 
     def to_liquid
-      data
+      self.data
     end
 
     def data
       {
+        "title" => "Posts tagged with \"#{@tag_name}\" on TravisSwicegood.com",
         "layout" => @layout,
         "posts" => @posts,
         "url" => @url,
+        "tag_name" => @tag_name,
+        "tags" => [@tag_name, ],
       }
     end
 
