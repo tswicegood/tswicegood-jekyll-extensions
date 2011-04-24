@@ -1,7 +1,7 @@
 module TravisSwicegoodGenerators
   class CommonTagAchive < Jekyll::Page
-    attr_reader :posts, :name, :subs, :tag_name, :tags, :real_init
-    attr_accessor :layouts
+    attr_reader :name, :subs, :tag_name, :tags, :real_init
+    attr_accessor :layouts, :posts
 
     def initialize(site, tag_name)
       real_init site, tag_name
