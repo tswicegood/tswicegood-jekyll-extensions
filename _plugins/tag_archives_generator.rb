@@ -1,7 +1,14 @@
 module TravisSwicegoodGenerators
-  class TagArchivePage < Jekyll::Page
-    attr_reader :posts, :name, :subs, :tag_name, :tags
+  class CommonTagAchive < Jekyll::Page
+    attr_reader :posts, :name, :subs, :tag_name, :tags, :real_init
+    attr_accessor :layouts
+
     def initialize(site, tag_name)
+      real_init site, tag_name
+      halt_on_layout_error unless layout_available?
+    end
+
+    def real_init(site, tag_name)
       # required for Jekyll
       @layout = "tag_archive"
       @dir = ''
@@ -13,8 +20,6 @@ module TravisSwicegoodGenerators
       @subs = {}
       # TODO: TagArchiveList objects should have a parent capability
       @sub_list = TagArchiveList.new(@site)
-
-      halt_on_layout_error unless layout_available?
     end
 
     # TODO: refactor this code into a common module
@@ -71,6 +76,20 @@ module TravisSwicegoodGenerators
     end
   end
 
+  class TagArchiveAtomPage < CommonTagAchive
+    def real_init(site, tag_name)
+      super(site, tag_name)
+      @layout = "tag_archive_atom"
+    end
+
+    def url
+      "#{super()}atom/"
+    end
+  end
+
+  class TagArchivePage < CommonTagAchive
+  end
+
   class TagArchiveList
     attr_accessor :tags
     def initialize(site)
@@ -81,7 +100,9 @@ module TravisSwicegoodGenerators
     def add(post)
       post.categories.each do |category|
         @tags[category] ||= TagArchivePage.new(@site, category)
+        @tags["#{category}_atom"] ||= TagArchiveAtomPage.new(@site, category)
         @tags[category].add post
+        @tags["#{category}_atom"].add post
       end
     end
 
